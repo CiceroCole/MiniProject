@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>喵呜</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            color: #fff;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #bbb;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #555;
+            border-radius: 4px;
+            font-size: 16px;
+            resize: none;
+            background-color: #333;
+            color: #fff;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #000;
+            background-color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            box-sizing: border-box;
+        }
+        button:hover {
+            background-color: #ddd;
+        }
+        .copy-btn {
+            width: 100%;
+            padding: 5px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #444;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: -10px;
+            margin-bottom: 20px;
+        }
+        .copy-btn:hover {
+            background-color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>喵呜</h1>
+
+        <form id="miaoForm" action="{{url_for('miaowu')}}" method="POST">
+            <label for="miao_str">人类语:</label>
+            <textarea id="miao_str" name="miao_str" rows="4" placeholder="请输入人类语">{{ miao_str }}</textarea>
+            {% if miao_str %}
+            <button type="button" class="copy-btn" onclick="copyToClipboard('miao_str')">复制</button>
+            {% endif %}
+            <input type="hidden" name="operation" value="miao">
+            <button type="submit">转喵呜语</button>
+        </form>
+
+        <form id="wuForm" action="{{url_for('miaowu')}}" method="POST">
+            <label for="wu_str">喵呜语:</label>
+            <textarea id="wu_str" name="wu_str" rows="4" placeholder="请输入喵呜语">{{ wu_str }}</textarea>
+            {% if wu_str %} 
+            <button type="button" class="copy-btn" onclick="copyToClipboard('wu_str')">复制</button>
+            {% endif %}
+            <input type="hidden" name="operation" value="wu">
+            <button type="submit">转人类语</button>
+        </form>
+    </div>
+
+    <script>
+        function copyToClipboard(elementId) {
+            var copyText = document.getElementById(elementId);
+            copyText.select();
+            document.execCommand("copy");
+            // alert("内容已复制");
+        }
+    </script>
+</body>
+</html>
