@@ -1,6 +1,7 @@
 from platform import system as sys_type
 import tkinter.filedialog as tkf
 import tkinter.ttk as ttk
+from hashlib import md5
 import tkinter as tk
 import threading
 import os.path
@@ -95,7 +96,6 @@ def StartRecvMsg():
                     temp = C.recv(1024)
                     data += temp
                 C.close()
-                print("\a")
                 AddMsgLog("对方: {}".format(data.decode("utf-8")))
             elif MsgType == "<F>":
                 FileNameBytes = b""
@@ -110,7 +110,6 @@ def StartRecvMsg():
                         Rf.write(data)
                         data = C.recv(1024)
                 C.close()
-                print("\a")
                 AddMsgLog(f"<!> 文件 {FileName} 已保存至 {MainPath} 目录下")
 
     task = threading.Thread(target=__RecvMsg)
@@ -208,11 +207,9 @@ root.resizable(False, False)
 ToIpEnt = ttk.Entry(width=32)
 ToIpEnt.grid(row=0, column=0)
 ToIpEnt.insert(tk.END, "请输入目标主机地址")
-ToIpEnt.bind("<Button-1>", func=lambda _: ToIpEnt.delete(0, tk.END))
 ToPortEnt = ttk.Entry(width=6)
 ToPortEnt.insert(tk.END, "端口")
 ToPortEnt.grid(row=0, column=1)
-ToPortEnt.bind("<Button-1>", func=lambda _: ToPortEnt.delete(0, tk.END))
 ttk.Button(text="确认", command=apply_ToIpPort, width=15).grid(row=0, column=2)
 
 # 显示信息记录
@@ -235,7 +232,7 @@ InfoLabel.grid(row=2, column=0, columnspan=3, sticky=tk.E + tk.W)
 
 
 # 输入栏
-MsgEntryText = tk.Text(width=30, height=2, font=("Microsoft YaHei UI", 10))
+MsgEntryText = tk.Text(width=30, height=2)
 MsgEntryText.grid(
     row=3, rowspan=2, column=0, columnspan=2, sticky=tk.E + tk.W + tk.N + tk.S
 )

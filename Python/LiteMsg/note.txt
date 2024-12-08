@@ -1,0 +1,8 @@
+Listbox
+Lb = tk.Listbox()
+Lb.curselection() 获取被选中的项索引
+Lb.get() 根据索引获取值
+Lb.size() 获取总项数
+Lb.delete()根据索引删除值
+Lb.select_set() 根据索引设置项被选中
+Lb.select_includes()  根据索引判断索引项是否被选中
